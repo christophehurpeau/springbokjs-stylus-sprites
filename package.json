@@ -1,0 +1,15 @@
+{
+  "name": "springbok-stylus-sprites",
+  "description": "Sprites for Stylus",
+  "version": "0.0.1",
+  "author": "Christophe Hurpeau <christophe@hurpeau.com>",
+  "keywords": ["stylus","sprites","sprite"],
+  "devDependencies":{
+		"springboktools":">=0.0.3",
+        "async":">=0.1.22",
+		"imagemagick":">=0.1.3",
+        "stylus":">=0.30.1"
+  },
+  "main": "./index.js",
+  "repository":"git://github.com/christophehurpeau/stylus-sprites.git"
+}
