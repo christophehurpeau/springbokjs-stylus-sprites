@@ -15,6 +15,8 @@ var Sprite=module.exports=function(sprites,name){
 		throw new Error("Invalid output format: '"+this.outputFormat+"'");
 }
 
+/* https://github.com/andris9/stylus-sprite/blob/master/stylus-sprite.js */
+
 Sprite.prototype={
 	
 	image:function(imageName,options,line){
@@ -32,19 +34,19 @@ Sprite.prototype={
 	build:function(css,callback){
 		console.log('building '+this.name);
 		var t=this,i=0,hasError=false,internalCallback=function(err){
-			i++
+			i++;
 			if(err) hasError=err;
 			if(t.imagesLength===i)
 				hasError ? callback(hasError) : t.makeMap(css,callback);
 		};
 		S.oForeach(t.images,function(k,image){
-			console.log("processing "+image.name +" ("+image.id+")...");
+			//console.log("processing "+image.name +" ("+image.id+")...");
 			image.readDimensions(function(err){
 				if(err){
 					if(err.message) err.message+='; line #'+image.lines.join(',');
 					return internalCallback(err);
 				}
-				console.log('dimensions: '+image.width+'x'+image.height);
+				//console.log('dimensions: '+image.width+'x'+image.height);
 				image.prepare();
 				
 				// Calculate canvas width
@@ -60,6 +62,7 @@ Sprite.prototype={
 	},
 	
 	makeMap:function(css,callback){
+		//console.log('makeMap '+this.name);
 		var t=this,posX=0,posY=0,commands=['-size',this.width+'x'+this.height,'xc:none'];
 		S.oForeach(this.images,function(k,image){
 			if(image.blockWidth==='100%') image.blockWidth=t.width;
@@ -108,39 +111,50 @@ Sprite.prototype={
 			}else{
 				posY+=image.height;
 			}
-			
 			var cssPlacementX=image.align==='right'?'100%':(image.align==='center'?'center':'-'+startX),
 				cssPlacementY="-"+startY;
-			var cssReplace=cssPlacementX+" "+cssPlacementY+'$1'
+			
+			var cssReplace=(cssPlacementX==='-0'?'0':cssPlacementX+'px')+" "+(cssPlacementY==='-0'?'0':cssPlacementY+'px')+'$1'
 					+(image.dimensions?' width:'+image.width+'; height:'+image.height+';':'');
 			
-			css.replace(new RegExp('spritepos\('+t.sprites.placeholder+'\-'+image.id+'\)([^;]*;)','g'),cssReplace)
+			//console.log('spritepos\\('+t.sprites.placeholder+'\\-'+image.id+'\\)([^;]*;)'+'=>'+cssReplace);
+			css=css.replace(new RegExp('spritepos\\('+t.sprites.placeholder+'\\-'+image.id+'\\)([^;]*;)','g'),cssReplace);
 		});
-		var path=t.sprites.outputPath,copySpriteTo=[];
+		var spritename=this.name,path=t.sprites.outputPath,copySpriteTo=[];
 		if(S.isArray(path)){
 			copySpriteTo=path;
 			path=copySpriteTo.shift();
 		}
 		
 		
-		var spritefilename=path+this.name,destfilename=spritefilename;
-		if(this.outputFormat==='png') destfilename+'_tmp_'+Date.now();
+		var spritefilename=path+spritename,destfilename=spritefilename;
+		if(this.outputFormat==='png') destfilename=destfilename+'_tmp_'+Date.now()+'.png';
 		commands.push(destfilename);
 		
+		var internalCallback=function(err){
+			if(err) return callback(err);
+			callback(null,css);
+		}
+		
+		//console.log('im: '+commands.join(' '));
 		im.convert(commands,function(err){
+			//console.log('im: '+(err?'Err : '+err:'no error'));
 			if(err) return callback(err);
 			if(t.outputFormat==='png'){
-				exec(t.sprites.pngcrush+' '+destfilename+' '+spritefilename,function(){
+				//console.log(t.sprites.pngcrush+' -brute '+destfilename+' '+spritefilename);
+				exec(t.sprites.pngcrush+' -brute '+destfilename+' '+spritefilename,function(err,stdout,stderr){
+					//console.log('pngcrush: '+(err?'Err : '+err:'no error')+"stdout="+stdout+', stderr='+stderr);
 					fs.unlink(destfilename);
 					if(copySpriteTo.length){
 						async.forEach(copySpriteTo,function(to,callback){
+							//console.log('copy '+spritefilename+' to '+to);
 							fs.createReadStream(spritefilename)
-								.pipe(fs.createWriteStream(to))
+								.pipe(fs.createWriteStream(to+spritename))
 									.on('close',callback);
-						});
-					}
+						},internalCallback);
+					}else internalCallback();
 				});
-			}
+			}else internalCallback();
 		});
 	}
 };

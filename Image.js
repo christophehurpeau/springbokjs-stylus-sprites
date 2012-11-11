@@ -1,11 +1,11 @@
 var im=require('imagemagick');
 
 var Image=module.exports=function(name,path,options){
-	console.log('new image',name,path);
+	//console.log('new image',name,path);
 	this.name=name;
 	this.path=path;
 	S.extObj(this,options);
-	this.id=this.autoincrement++;
+	this.id=Image.autoincrement++;
 	this.lines=[];
 }
 
@@ -71,10 +71,8 @@ Image.options={
 		return S.aSortBy(hash,0).map(function(a){return a[0]+':'+a[1];}).join(';');
 	}
 }
-
+Image.autoincrement=1;
 Image.prototype={
-	autoincrement:1,
-	
 	addLine:function(line){
 		this.lines.push(line);
 	},
