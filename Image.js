@@ -53,7 +53,7 @@ Image.options={
 	},
 	
 	parse:function(options){
-		var opts=S.cloneObj(this.defaults);
+		var opts=S.oClone(this.defaults);
 		if(options)
 			options.split(/[,;]+/).forEach(function(opt){
 				var parts=opt.split(':',2),
