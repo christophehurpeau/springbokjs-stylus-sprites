@@ -39,7 +39,7 @@ Sprite.prototype={
 			if(t.imagesLength===i)
 				hasError ? callback(hasError) : t.makeMap(css,callback);
 		};
-		S.oForEach(t.images,function(k,image){
+		UObj.forEach(t.images,function(k,image){
 			//console.log("processing "+image.name +" ("+image.id+")...");
 			image.readDimensions(function(err){
 				if(err){
@@ -64,7 +64,7 @@ Sprite.prototype={
 	makeMap:function(css,callback){
 		//console.log('makeMap '+this.name);
 		var t=this,posX=0,posY=0,commands=['-size',this.width+'x'+this.height,'xc:none'];
-		S.oForEach(this.images,function(k,image){
+		UObj.forEach(this.images,function(k,image){
 			if(image.blockWidth==='100%') image.blockWidth=t.width;
 			/*if(image.width>image.imageWidth)
 				posX=Math.round(image.width/2-image.imageWidth/2);

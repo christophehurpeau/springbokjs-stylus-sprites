@@ -1,10 +1,11 @@
 var im=require('imagemagick');
+require('springboktools/UArray');
 
 var Image=module.exports=function(name,path,options){
 	//console.log('new image',name,path);
 	this.name=name;
 	this.path=path;
-	S.extObj(this,options);
+	UObj.extend(this,options);
 	this.id=Image.autoincrement++;
 	this.lines=[];
 }
@@ -42,7 +43,7 @@ Image.options={
 				if(isNaN(value)) throw new Error("Invalid number value '"+value+"' for "+key);
 				break;
 			case 'predefined':
-				if(!S.aHas(this.keys[key].values,value))
+				if(!UArray.has(this.keys[key].values,value))
 					throw new Error("Unknown value '"+value+"' for "+key+", allowed: "+this.keys[key].values);
 				break;
 			case 'boolean':
@@ -53,7 +54,7 @@ Image.options={
 	},
 	
 	parse:function(options){
-		var opts=S.oClone(this.defaults);
+		var opts=UObj.clone(this.defaults);
 		if(options)
 			options.split(/[,;]+/).forEach(function(opt){
 				var parts=opt.split(':',2),
@@ -68,7 +69,7 @@ Image.options={
 		var hash=[];
 		for(var i in options)
 			hash.push([i,options[i]]);
-		return S.aSortBy(hash,0).map(function(a){return a[0]+':'+a[1];}).join(';');
+		return UArray.sortBy(hash,0).map(function(a){return a[0]+':'+a[1];}).join(';');
 	}
 }
 Image.autoincrement=1;

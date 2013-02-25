@@ -1,4 +1,7 @@
 require('springboktools');
+require('springboktools/UObj');
+require('springboktools/UArray');
+require('springboktools/UString/UString');
 var
 	Sprite=require('./Sprite'),
 	Image=require('./Image'),
@@ -7,12 +10,12 @@ var
 	async=require('async');
 
 var StylusSprites=module.exports=function(options){
-	S.extObj(this,{
+	UObj.extend(this,{
 		placeholder:'SPRINGBOK_SPRITE_PLACEHOLDER',
 		pngcrush:'pngcrush',
 		prefix:''
 	});
-	S.extObj(this,options);
+	UObj.extend(this,options);
 	if(!this.path) throw new Error('path must be set');
 	this.sprites={};
 };
@@ -38,7 +41,7 @@ StylusSprites.prototype={
 		return function(name,image,options){
 			options=Image.options.parse(options&&options.val);
 			if(!name||!name.string) throw new Error('sprite must have a file name');
-			if(!S.sHas(name.string,'.')) name.string+='.png';
+			if(!name.string.contains('.')) name.string+='.png';
 			var sprite=t.getSprite(name.string), image = sprite.image(image.string,options,name.lineno);
 			return new nodes.Property(['background'],'url('+name.string+') spritepos('+t.placeholder+'-'+image.id+')');
 			/*
