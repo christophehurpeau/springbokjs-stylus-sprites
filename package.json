@@ -1,10 +1,10 @@
 {
   "name": "springbok-stylus-sprites",
   "description": "Springbok - Sprites for Stylus",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Christophe Hurpeau <christophe@hurpeau.com>",
   "keywords": ["stylus","sprites","sprite","springbok"],
-  "devDependencies":{
+  "dependencies":{
 		"springboktools":">=0.1.7",
         "async":">=0.1.22",
 		"imagemagick":">=0.1.3",
