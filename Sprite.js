@@ -148,6 +148,7 @@ Sprite.prototype={
 					if(copySpriteTo.length){
 						async.forEach(copySpriteTo,function(to,callback){
 							//console.log('copy '+spritefilename+' to '+to);
+							console.log('copy '+spritefilename+' to '+to);
 							fs.createReadStream(spritefilename)
 								.pipe(fs.createWriteStream(to+spritename))
 									.on('close',callback);
