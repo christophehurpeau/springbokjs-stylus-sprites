@@ -50,7 +50,7 @@ Sprite.prototype={
 				image.prepare();
 				
 				// Calculate canvas width
-				if(S.isNb(image.blockWidth) && image.blockWidth>t.width) t.width=image.blockWidth;
+				if(S.isNumber(image.blockWidth) && image.blockWidth>t.width) t.width=image.blockWidth;
 				// Images with 100% block width need canvas width to be at least their image width
 				if(image.width>t.width) t.width=image.width;
 				
