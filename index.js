@@ -1,7 +1,7 @@
-require('springboktools');
-require('springboktools/UObj');
-require('springboktools/UArray');
-require('springboktools/UString/UString');
+require('springbokjs-utils');
+require('springbokjs-utils/UObj');
+require('springbokjs-utils/UArray');
+require('springbokjs-utils/UString/UString');
 var
 	Sprite=require('./Sprite'),
 	Image=require('./Image'),
@@ -65,4 +65,4 @@ StylusSprites.prototype={
 			//return new nodes.Property(["background"], "url('"+httpUrl+"') "+positionX+"px "+positionY+"px");
 		};
 	},
-}
+};

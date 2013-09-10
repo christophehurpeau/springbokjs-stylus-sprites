@@ -1,5 +1,5 @@
 var im=require('imagemagick');
-require('springboktools/UArray');
+require('springbokjs-utils/UArray');
 
 var Image=module.exports=function(name,path,options){
 	//console.log('new image',name,path);
@@ -8,7 +8,7 @@ var Image=module.exports=function(name,path,options){
 	UObj.extend(this,options);
 	this.id=Image.autoincrement++;
 	this.lines=[];
-}
+};
 
 Image.options={
 	/* https://github.com/andris9/stylus-sprite/blob/master/stylus-sprite.js#L63 */
@@ -71,7 +71,7 @@ Image.options={
 			hash.push([i,options[i]]);
 		return UArray.sortBy(hash,0).map(function(a){return a[0]+':'+a[1];}).join(';');
 	}
-}
+};
 Image.autoincrement=1;
 Image.prototype={
 	addLine:function(line){
@@ -107,4 +107,4 @@ Image.prototype={
 		// Block height can't be lower than image height
 		if(this.blockHeight<this.height) this.blockHeight=this.height;
 	}
-}
+};

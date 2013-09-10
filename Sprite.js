@@ -13,7 +13,7 @@ var Sprite=module.exports=function(sprites,name){
 	
 	if(["png", "jpeg", "jpg", "gif"].indexOf(this.outputFormat)===-1)
 		throw new Error("Invalid output format: '"+this.outputFormat+"'");
-}
+};
 
 /* https://github.com/andris9/stylus-sprite/blob/master/stylus-sprite.js */
 
@@ -134,7 +134,7 @@ Sprite.prototype={
 		var internalCallback=function(err){
 			if(err) return callback(err);
 			callback(null,css);
-		}
+		};
 		
 		//console.log('im: '+commands.join(' '));
 		im.convert(commands,function(err){
