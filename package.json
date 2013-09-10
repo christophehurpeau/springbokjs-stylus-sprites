@@ -11,5 +11,5 @@
 		"stylus":">=0.37.0"
   },
   "main": "./index.js",
-  "repository":"git://github.com/christophehurpeau/stylus-sprites.git"
+  "repository":"git://github.com/christophehurpeau/springbokjs-stylus-sprites.git"
 }
