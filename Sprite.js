@@ -143,6 +143,7 @@ Sprite.prototype={
 			if(t.outputFormat==='png'){
 				//console.log(t.sprites.pngcrush+' -brute '+destfilename+' '+spritefilename);
 				exec(t.sprites.pngcrush+' -brute '+destfilename+' '+spritefilename,function(err,stdout,stderr){
+					if(err) return callback(err);
 					//console.log('pngcrush: '+(err?'Err : '+err:'no error')+"stdout="+stdout+', stderr='+stderr);
 					fs.unlink(destfilename);
 					if(copySpriteTo.length){

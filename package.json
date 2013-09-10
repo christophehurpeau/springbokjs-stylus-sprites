@@ -1,7 +1,7 @@
 {
   "name": "springbokjs-stylus-sprites",
   "description": "Springbok - Sprites for Stylus",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": "Christophe Hurpeau <christophe@hurpeau.com>",
   "keywords": ["stylus","sprites","sprite","springbok"],
   "dependencies":{
