@@ -21,7 +21,9 @@ Image.options={
 		'resize':{type:'boolean'},
 		'repeat':{type:'predefined', values:['no','x','y']},
 		'limit-repeat-x':{type:'number'},
-		'limit-repeat-y':{type:'number'}
+		'limit-repeat-y':{type:'number'},
+		'before':{type:'string'},
+		'after':{type:'string'},
 	},
 	defaults:{
 		width:0, height:0,
@@ -32,6 +34,8 @@ Image.options={
 		repeat:'no',
 		'limit-repeat-x':300,
 		'limit-repeat-y':0,
+		before:'',
+		after:'',
 	},
 	
 	validate:function(key,value){

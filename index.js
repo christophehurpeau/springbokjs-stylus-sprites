@@ -43,7 +43,7 @@ StylusSprites.prototype={
 			if(!name||!name.string) throw new Error('sprite must have a file name');
 			if(!name.string.contains('.')) name.string+='.png';
 			var sprite=t.getSprite(name.string), image = sprite.image(image.string,options,name.lineno);
-			return new nodes.Property(['background'],'url('+name.string+') spritepos('+t.placeholder+'-'+image.id+')');
+			return new nodes.Property(['background'],options.before+' url('+name.string+') spritepos('+t.placeholder+'-'+image.id+') '+options.after);
 			/*
 			width = item.width;
 			height = item.height;

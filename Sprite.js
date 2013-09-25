@@ -122,12 +122,13 @@ Sprite.prototype={
 		});
 		var spritename=this.name,path=t.sprites.outputPath,copySpriteTo=[];
 		if(S.isArray(path)){
-			copySpriteTo=path;
+			if(!path.length) return callback('array path is empty');
+			copySpriteTo=UArray.clone(path);
 			path=copySpriteTo.shift();
 		}
 		
-		
-		var spritefilename=path+spritename,destfilename=spritefilename;
+		if(!path) return callback('path is empty');
+		var spritefilename=path+spritename, destfilename=spritefilename;
 		if(this.outputFormat==='png') destfilename=destfilename+'_tmp_'+Date.now()+'.png';
 		commands.push(destfilename);
 		
@@ -149,7 +150,6 @@ Sprite.prototype={
 					if(copySpriteTo.length){
 						async.forEach(copySpriteTo,function(to,callback){
 							//console.log('copy '+spritefilename+' to '+to);
-							console.log('copy '+spritefilename+' to '+to);
 							fs.createReadStream(spritefilename)
 								.pipe(fs.createWriteStream(to+spritename))
 									.on('close',callback);
