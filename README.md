@@ -1,7 +1,8 @@
 exemple :
 
-main.styl
+> main.styl
 
+```
 .icon,.icon32
 	display inline-block
 	width 16px
@@ -15,3 +16,4 @@ icon16($name,iconName=$name)
 
 sicons16(fileIconName)
 	sprite i16 '../images/'+fileIconName+'.png' 'dimensions:false'
+```
