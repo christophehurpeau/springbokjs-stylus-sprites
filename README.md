@@ -17,3 +17,6 @@ icon16($name,iconName=$name)
 sicons16(fileIconName)
 	sprite i16 '../images/'+fileIconName+'.png' 'dimensions:false'
 ```
+
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/christophehurpeau/springbokjs-stylus-sprites.svg)](https://greenkeeper.io/)
